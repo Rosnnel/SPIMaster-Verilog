@@ -1,11 +1,11 @@
 module SCLKGenerator #(parameter ClkFreq=100000000, SPIClkFreq=2000000)
 (clk,CPHA,CPOL,ClkCntEn,SCLK,ClkCntFlg);
 
-    localparam DIV=(ClkFreq/SPIClkFreq);
+    localparam DIV=(ClkFreq/(2*SPIClkFreq));
 
     input clk,CPHA,CPOL;
     input ClkCntEn;
-    output reg ClkCntFlg;
+    output ClkCntFlg;
     output SCLK;
     
     reg Flg;
@@ -38,24 +38,14 @@ module SCLKGenerator #(parameter ClkFreq=100000000, SPIClkFreq=2000000)
         R0<=SCLK;
         R1<=R0;
     end
+    wire RsgnEdge, FllEdge;
+    assign RsgnEdge = (R0 && ~R1) ? 1'b1 : 1'b0,
+           FllEdge  = (~R0 && R1) ? 1'b1 : 1'b0;
 
-    always@(*)
-    begin
-        case({CPOL,CPHA})
-            2'b00, 2'b11:
-            begin
-                if(R0==0 && R1==1)
-                    ClkCntFlg = 1'b1;
-                else
-                    ClkCntFlg = 1'b0;
-            end
-            2'b01,2'b10:
-            begin
-                if(R0==1 && R1==0)
-                    ClkCntFlg = 1'b1;
-                else
-                    ClkCntFlg = 1'b0;
-            end
-        endcase
-    end
+    wire leadigngEdge, trailingEdge;
+    assign leadigngEdge = (~CPOL) ? RsgnEdge : FllEdge,
+           trailingEdge = (~CPOL) ? FllEdge : RsgnEdge;
+
+    assign ClkCntFlg = (~CPHA) ? trailingEdge : leadigngEdge;
+
 endmodule
