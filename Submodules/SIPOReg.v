@@ -1,5 +1,5 @@
 module SIPOReg #(parameter WordLen=8)
-(clk,SCLKEdgeFlg,EnSIPO,Endiannes,MISO,ReceivedData));
+(clk,SCLKEdgeFlg,EnSIPO,Endiannes,MISO,ReceivedData);
 
     input clk,SCLKEdgeFlg,EnSIPO,Endiannes;
     input MISO;
