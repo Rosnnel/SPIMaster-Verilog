@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: CERN-OHL-S-2.0
+// © 2025 Rosnnel Moncada
+
 module SIPOReg #(parameter WordLen=8)
 (clk,SCLKEdgeFlg,EnSIPO,Endiannes,MISO,ReceivedData);
 

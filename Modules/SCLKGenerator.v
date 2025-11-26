@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: CERN-OHL-S-2.0
+// © 2025 Rosnnel Moncada
+
 module SCLKGenerator #(parameter SysClk=100000000, SPIClkFreq=2000000)
 (clk,CPHA,CPOL,EnSCLK,SCLK,SCLKEdgeFlg);
 

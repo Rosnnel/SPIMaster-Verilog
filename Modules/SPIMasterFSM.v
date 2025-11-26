@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: CERN-OHL-S-2.0
+// © 2025 Rosnnel Moncada
+
 module SPIMasterFSM 
 (clk,reset,SPIGo,EnSCLK,EnCounter,WordFlg,LoadPISO,EnPISO,EnSIPO,EnReceivedReg,SPIMode,
 TxBusy,SS,RxBusy,TristateMode,SCLKEdgeFlg);
@@ -38,9 +41,7 @@ TxBusy,SS,RxBusy,TristateMode,SCLKEdgeFlg);
                 else
                     NS = FBS1;
             FBS1:
-                if(~SPIGo)
-                    NS= idle;
-                else if(WordFlg)
+                if(WordFlg)
                     NS = FBS0;
                 else
                     NS = FBS1;
@@ -52,16 +53,12 @@ TxBusy,SS,RxBusy,TristateMode,SCLKEdgeFlg);
                 else
                     NS = HBS0;
             HBS1:
-                if(~SPIGo)
-                    NS= idle;
-                else if(WordFlg)
+                if(WordFlg)
                     NS = HBS2;
                 else
                     NS = HBS1;
             HBS2:
-                if(~SPIGo)
-                    NS= idle;
-                else if(WordFlg)
+                if(WordFlg)
                     NS = HBS0;
                 else
                     NS = HBS2;

@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: CERN-OHL-S-2.0
+// © 2025 Rosnnel Moncada
+
 module Generic_MatserSPI_TB();
 
     parameter WordLen = 8,

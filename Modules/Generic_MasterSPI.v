@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: CERN-OHL-S-2.0
+// © 2025 Rosnnel Moncada
+
 module Generic_MasterSPI #(parameter SysClk = 100000000, SPIClkFreq = 2000000, WordLen = 8)
 (clk,reset,CPOL,CPHA,SPIGo,SPIMode,RxBusy,SS,TxBusy,SendData,MOSI,ReceivedData,
 MISO,Endianess,WordFlg,SCLK);
