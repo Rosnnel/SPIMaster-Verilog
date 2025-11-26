@@ -52,8 +52,11 @@ By the way uncommenting the line 19 and 41 will forcely drive data to the MOSI B
 
 <img width="1547" height="422" alt="HB2" src="https://github.com/user-attachments/assets/cccdab2e-a308-4181-9535-e712cfe87938" />
 
-Another specs that can be provided is the resource consumption in an Arty S7 FPGA Development board, achieving the following results:
+Another specs that can be provided is the resource consumption, power consumption and max system frequency in an Arty S7 FPGA Development board, achieving the following results:
 <img width="607" height="81" alt="Utilization" src="https://github.com/user-attachments/assets/bc23c8ee-24a6-4aaf-9b57-92f6790747b1" />
+<img width="400" height="242" alt="image" src="https://github.com/user-attachments/assets/ff1d07ad-c125-494e-bbf2-d1f8652238a2" />
+<img width="404" height="64" alt="image" src="https://github.com/user-attachments/assets/a6ed3677-49cb-486c-aa4d-519e3ed17174" />
+<img width="1012" height="203" alt="image" src="https://github.com/user-attachments/assets/941fe6c1-ba35-4e39-a640-04fedc86de24" />
 
 ------------------------------
 
