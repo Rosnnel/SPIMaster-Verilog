@@ -5,7 +5,7 @@ CPOL, CPHA, BitOrdering and the possibility to change the operation mode betewee
 
 The Serial Peripheral Interface module allows to transfer data quickly between different chips by selecting an slave through a inverted Slave Select - *SS* signal and generating a synchronizer 
 SPI CLOCK - SCLK signal, that tells both the sender and receiver when to sample and shift data based on the CPOL and CPHA configuration signals, the data is shifted and sampled by the MOSI and MISO ports,
-the bit ordering can be changed through the Endianess bit, performing MSBfirst when BitOrder = 0 and LSBfirst when BitOrder = 1. 
+the bit ordering can be changed through the BitOrder pin, performing MSBfirst when BitOrder = 0 and LSBfirst when BitOrder = 1. 
 The SPIGo signal tells the module to start the communication between the master and the slave and their functionality vary between the Full-Bridge and Half-bridge modes, alternating the MOSI Bus for TX and RX when 
 HalfBridge mode and using both the MOSI and MISO for the FUll Bridge Mode.  
 
