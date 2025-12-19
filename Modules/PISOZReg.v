@@ -2,10 +2,10 @@
 // © 2025 Rosnnel Moncada
 
 module PISOZReg #(parameter WordLen=8)
-(clk,SCLKEdgeFlg,EnPISO,LoadPISO,WordFlg,TristateMode,BitOrder,DataIN,MOSI,HBReceviedData);
+(clk,ShiftEdge,EnPISO,LoadPISO,WordFlg,TristateMode,BitOrder,DataIN,MOSI,HBReceviedData);
 
     input TristateMode;
-    input clk,SCLKEdgeFlg,EnPISO,LoadPISO,WordFlg,BitOrder;
+    input clk,ShiftEdge,EnPISO,LoadPISO,WordFlg,BitOrder;
     input [WordLen-1:0] DataIN;
     output [WordLen-1:0]HBReceviedData;
     inout MOSI;
@@ -20,7 +20,7 @@ module PISOZReg #(parameter WordLen=8)
             begin
                 if(LoadPISO)
                     TXReg <= DataIN;
-                else if(SCLKEdgeFlg && ~WordFlg)
+                else if(ShiftEdge && ~WordFlg)
                 begin
                     if(BitOrder)      //Little Endian
                         TXReg <= {1'b0,TXReg[WordLen-1:1]};
@@ -30,7 +30,7 @@ module PISOZReg #(parameter WordLen=8)
             end
             else if(~TristateMode) //Receiving Data
             begin
-                if(SCLKEdgeFlg && ~WordFlg)
+                if(ShiftEdge && ~WordFlg)
                 begin
                     if(~BitOrder)      //Little Endian
                         RXReg <= {MOSI,RXReg[WordLen-1:1]};

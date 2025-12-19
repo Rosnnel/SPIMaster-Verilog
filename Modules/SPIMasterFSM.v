@@ -3,9 +3,9 @@
 
 module SPIMasterFSM 
 (clk,reset,SPIGo,EnSCLK,EnCounter,WordFlg,LoadPISO,EnPISO,EnSIPO,EnReceivedReg,SPIMode,
-TxBusy,SS,RxBusy,TristateMode,SCLKEdgeFlg);
+TxBusy,SS,RxBusy,TristateMode,ShiftEdge);
 
-    input clk,reset,SPIGo,WordFlg,SPIMode,SCLKEdgeFlg;
+    input clk,reset,SPIGo,WordFlg,SPIMode,ShiftEdge;
     output reg EnSCLK,EnCounter,LoadPISO,EnPISO,EnSIPO,EnReceivedReg,TxBusy,RxBusy,SS,
         TristateMode;
 
@@ -38,7 +38,7 @@ TxBusy,SS,RxBusy,TristateMode,SCLKEdgeFlg);
             FBS0:
                 if(~SPIGo)
                     NS= idle;
-                else if (SCLKEdgeFlg)
+                else if (ShiftEdge)
                     NS = FBS1;
                 else
                     NS = FBS0;
@@ -50,7 +50,7 @@ TxBusy,SS,RxBusy,TristateMode,SCLKEdgeFlg);
             HBS0:
                 if(~SPIGo)
                     NS= idle;
-                else if (SCLKEdgeFlg)
+                else if (ShiftEdge)
                     NS = HBS1;
                 else
                     NS = HBS0;

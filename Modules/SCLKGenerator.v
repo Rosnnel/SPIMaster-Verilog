@@ -2,13 +2,14 @@
 // © 2025 Rosnnel Moncada
 
 module SCLKGenerator #(parameter SysClk=100000000, SPIClkFreq=2000000)
-(clk,CPHA,CPOL,EnSCLK,SCLK,SCLKEdgeFlg);
+(clk,CPHA,CPOL,EnSCLK,SCLK,ShiftEdge,SampleEdge);
 
     localparam DIV=(SysClk/(2*SPIClkFreq));
 
     input clk,CPHA,CPOL;
     input EnSCLK;
-    output SCLKEdgeFlg;
+    output ShiftEdge;
+    output SampleEdge;
     output SCLK;
     
     reg Flg;
@@ -17,12 +18,15 @@ module SCLKGenerator #(parameter SysClk=100000000, SPIClkFreq=2000000)
     always@(posedge clk)
     begin
         if(EnSCLK)
-        begin
-            Count <= Count+1;
+        begin            
             if(Count>=DIV-1)
             begin
                 Flg <= ~Flg;
                 Count <= 20'b0;
+            end
+            else
+            begin
+                Count <= Count+1;
             end
         end 
         else
@@ -49,6 +53,7 @@ module SCLKGenerator #(parameter SysClk=100000000, SPIClkFreq=2000000)
     assign leadigngEdge = (~CPOL) ? RsgnEdge : FllEdge,
            trailingEdge = (~CPOL) ? FllEdge : RsgnEdge;
 
-    assign SCLKEdgeFlg = (~CPHA) ? trailingEdge : leadigngEdge;
+    assign ShiftEdge = (~CPHA) ? trailingEdge : leadigngEdge;
+    assign SampleEdge = (CPHA) ? trailingEdge : leadigngEdge;
 
 endmodule

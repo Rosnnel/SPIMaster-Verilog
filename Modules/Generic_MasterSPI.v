@@ -24,31 +24,31 @@ MISO,BitOrder,WordFlg,SCLK);
         end
     end
 
-    wire EnSCLK,SCLKEdgeFlg,EnCounter,WordFlg,LoadPISO,EnPISO,EnSIPO,EnReceivedReg,
+    wire EnSCLK,ShiftEdge,SampleEdge,EnCounter,WordFlg,LoadPISO,EnPISO,EnSIPO,EnReceivedReg,
          TristateMode;
     SPIMasterFSM SPIMasterFSM
     (.clk(clk),.reset(reset),.SPIGo(SPIGo),.EnSCLK(EnSCLK),.EnCounter(EnCounter),
     .WordFlg(WordFlg),.LoadPISO(LoadPISO),.EnPISO(EnPISO),.EnSIPO(EnSIPO),
     .EnReceivedReg(EnReceivedReg),.SPIMode(SPIModeR),.TxBusy(TxBusy),.SS(SS),
-    .RxBusy(RxBusy),.TristateMode(TristateMode),.SCLKEdgeFlg(SCLKEdgeFlg));
+    .RxBusy(RxBusy),.TristateMode(TristateMode),.ShiftEdge(ShiftEdge));
 
 
     SCLKGenerator #(.SysClk(SysClk), .SPIClkFreq(SPIClkFreq)) SCLKGen
     (.clk(clk),.CPHA(CPHAR),.CPOL(CPOLR),.EnSCLK(EnSCLK),.SCLK(SCLK),
-    .SCLKEdgeFlg(SCLKEdgeFlg));
+    .ShiftEdge(ShiftEdge),.SampleEdge(SampleEdge));
 
     DataWordCounter #(.WordLen(WordLen)) DataWordCounter
-    (.clk(clk),.EnCount(EnCounter),.SCLKEdgeFlg(SCLKEdgeFlg),.WordFlg(WordFlg));
+    (.clk(clk),.EnCount(EnCounter),.SampleEdge(SampleEdge),.WordFlg(WordFlg));
 
     wire [WordLen-1:0] HBReceivedData;
     PISOZReg #(.WordLen(WordLen)) PISOZReg
-    (.clk(clk),.SCLKEdgeFlg(SCLKEdgeFlg),.EnPISO(EnPISO),.LoadPISO(LoadPISO),
+    (.clk(clk),.ShiftEdge(ShiftEdge),.EnPISO(EnPISO),.LoadPISO(LoadPISO),
     .WordFlg(WordFlg),.TristateMode(TristateMode),.BitOrder(EndianessR),.DataIN(SendData),
     .MOSI(MOSI),.HBReceviedData(HBReceivedData));
 
     wire [WordLen-1:0] FBReceivedData;
     SIPOReg #(.WordLen(WordLen)) SIPOReg
-    (.clk(clk),.SCLKEdgeFlg(SCLKEdgeFlg),.EnSIPO(EnSIPO),.BitOrder(EndianessR),.MISO(MISO),
+    (.clk(clk),.SampleEdge(SampleEdge),.EnSIPO(EnSIPO),.BitOrder(EndianessR),.MISO(MISO),
     .ReceivedData(FBReceivedData));
 
     reg [WordLen-1:0] ReceivedDataC;

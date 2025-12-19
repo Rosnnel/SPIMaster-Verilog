@@ -2,9 +2,9 @@
 // © 2025 Rosnnel Moncada
 
 module SIPOReg #(parameter WordLen=8)
-(clk,SCLKEdgeFlg,EnSIPO,BitOrder,MISO,ReceivedData);
+(clk,SampleEdge,EnSIPO,BitOrder,MISO,ReceivedData);
 
-    input clk,SCLKEdgeFlg,EnSIPO,BitOrder;
+    input clk,SampleEdge,EnSIPO,BitOrder;
     input MISO;
     output [WordLen-1:0] ReceivedData;
 
@@ -14,7 +14,7 @@ module SIPOReg #(parameter WordLen=8)
     begin
         if(EnSIPO)
         begin
-            if(SCLKEdgeFlg)
+            if(SampleEdge)
             begin
                 if(BitOrder)      //Little Endian
                     Reg <= {MISO,Reg[WordLen-1:1]};

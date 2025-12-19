@@ -2,11 +2,11 @@
 // © 2025 Rosnnel Moncada
 
 module DataWordCounter #(parameter WordLen=8)
-(clk,EnCount,SCLKEdgeFlg,WordFlg);
+(clk,EnCount,SampleEdge,WordFlg);
 
     input clk;
     input EnCount;
-    input SCLKEdgeFlg;
+    input SampleEdge;
     output reg WordFlg;
     
     reg [7:0] Count;
@@ -15,7 +15,7 @@ module DataWordCounter #(parameter WordLen=8)
     begin
         if(EnCount)
         begin
-            if(SCLKEdgeFlg)
+            if(SampleEdge)
             begin
                 if(Count>=WordLen-1)
                 begin
